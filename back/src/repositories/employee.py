@@ -6,7 +6,7 @@ class EmployeeRepository(BaseRepository):
 
     def __init__(self):
         BaseRepository.__init__(self, Employee())
-        self.session = Employee().get_db().session
+        self.session = Employee().get_session()
 
     def create(self, data):
         # print(data['name'])
