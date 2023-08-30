@@ -1,2 +1,4 @@
 back/.venv
+back/.env
+/back/.env
 .idea/
