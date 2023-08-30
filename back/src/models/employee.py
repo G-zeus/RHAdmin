@@ -17,7 +17,6 @@ class Employee(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "price": self.price,
             "second_name": self.second_name,
             "emergency_contact": self.emergency_contact,
             "emergency_phone": self.emergency_phone,
