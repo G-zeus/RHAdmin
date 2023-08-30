@@ -5,6 +5,7 @@ from .base import db
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    last_name = db.Column(db.String(200))
     second_name = db.Column(db.String(200))
     emergency_contact = db.Column(db.String(250))
     emergency_phone = db.Column(db.String(20))
@@ -17,6 +18,7 @@ class Employee(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "last_name": self.second_name,
             "second_name": self.second_name,
             "emergency_contact": self.emergency_contact,
             "emergency_phone": self.emergency_phone,
