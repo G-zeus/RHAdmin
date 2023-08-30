@@ -1,4 +1,4 @@
-from back.src.repositories.employee import EmployeeRepository
+from ..repositories.employee import EmployeeRepository
 from .contracts.main_controller import MainController
 
 

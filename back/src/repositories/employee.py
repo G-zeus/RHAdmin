@@ -1,5 +1,5 @@
 from .contracts.base_repository import BaseRepository
-from back.src.models.employee import Employee
+from ..models.employee import Employee
 
 
 class EmployeeRepository(BaseRepository):
