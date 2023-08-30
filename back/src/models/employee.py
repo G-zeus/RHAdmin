@@ -26,3 +26,6 @@ class Employee(db.Model):
             "updated_at": str(self.updated_at),
             "created_at": str(self.created_at)
         }
+
+    def get_session(self):
+        return db.session
