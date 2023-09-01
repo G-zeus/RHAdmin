@@ -15,5 +15,14 @@ class EmployeeController(MainController):
 
     def create(self, data):
         row = self.employee_repository.create(data)
+        return self.success(data=row)
 
-        return row
+    def update(self, id: int, data):
+        row = self.employee_repository.update(id=id, data=data)
+
+        return self.success(data=row)
+
+    def delete(self, id: int):
+        row = self.employee_repository.delete(id=id)
+
+        return self.success(data=row)

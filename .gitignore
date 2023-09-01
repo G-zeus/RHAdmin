@@ -1,4 +1,5 @@
 back/.venv
 back/.env
 /back/.env
+/back/var/storage
 .idea/
