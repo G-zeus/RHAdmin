@@ -4,6 +4,9 @@ from flask import Flask, Response
 
 from .config.config import Config
 from .routes.employee import employee
+from .routes.auth import auth
+from .routes.history import history
+from .routes.emergency import emergency
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -30,6 +33,10 @@ def get_config():
 def get_routes():
 
     app.register_blueprint(employee)
+    app.register_blueprint(auth)
+    app.register_blueprint(history)
+    app.register_blueprint(emergency)
+
 
 def set_db():
     from . import models as database
