@@ -24,15 +24,8 @@ class Security:
         }
         return jwt.encode(payload, self.secret, algorithm="HS256")
 
-    def verify_jwt(self, token):
-        if 'Authorization' in headers.keys():
-            authorization = headers['Authorization']
-            encoded_token = authorization.split(" ")[1]
-
-            if len(token) > 0:
-                try:
-                    return jwt.decode(token, self.secret, algorithms=["HS256"])
-                except (jwt.ExpiredSignatureError, jwt.InvalidSignatureError):
-                    return False
-
-
+    def verify_jwt(self, token: str):
+        try:
+            return jwt.decode(token, self.secret, algorithms=["HS256"])
+        except (jwt.ExpiredSignatureError, jwt.InvalidSignatureError):
+            return False

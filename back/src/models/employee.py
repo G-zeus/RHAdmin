@@ -32,8 +32,14 @@ class Employee(db.Model):
             "position": self.position,
             "updated_at": str(self.updated_at),
             "created_at": str(self.created_at),
-            "history": self.history
+            "history": self.relation_to_dict(self.history)
         }
+
+    def relation_to_dict(self, obj: list) -> list:
+        res = []
+        for item in obj:
+            res.append(item.obj_to_dict())
+        return res
 
     def get_session(self):
         return db.session
