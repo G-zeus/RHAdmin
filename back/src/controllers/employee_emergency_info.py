@@ -19,10 +19,11 @@ class EmployeeEmergencyInfoController(MainController):
         return self.success(data=data)
 
     def get_qr_image(self, id: int):
-        uri = 'api/emergency/' + str(id)
-        name = uri.replace('/', '_')+'.png'
+        uri = "#/infoEmergencia/" + str(id)
+        print("id: "+str(id)+ "  uri:" +uri)
 
         self.qr.make_qr(uri)
+        name = uri.replace('/', '_')+'.png'
         return send_file(path_or_file='../var/storage/' + name,
                          mimetype="image/png",
                          as_attachment=True,

@@ -41,9 +41,10 @@ class EmployeeRepository(BaseRepository):
             self.session.add(old)
             self.session.commit()
 
-            h = History(values=json.dumps(changes), employee_id=old.id)
-            self.session.add(h)
-            self.session.commit()
+            if len(changes) > 0:
+                h = History(values=json.dumps(changes), employee_id=old.id)
+                self.session.add(h)
+                self.session.commit()
 
             return old.obj_to_dict()
         except Exception as e:

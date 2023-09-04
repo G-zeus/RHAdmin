@@ -9,14 +9,16 @@ security = Security()
 
 @history.before_request
 def before_request_func():
-    if 'Authorization' not in request.headers.keys():
-        return controller.custom_error(code=401, msg='Unauthorized')
+    if request.method != 'OPTIONS':
 
-    authorization = request.headers['Authorization']
-    token = authorization.split(" ")[1]
+        if 'Authorization' not in request.headers.keys():
+            return controller.custom_error(code=401, msg='Unauthorized')
 
-    if not security.verify_jwt(token):
-        return controller.custom_error(code=401, msg='Unauthorized')
+        authorization = request.headers['Authorization']
+        token = authorization.split(" ")[1]
+
+        if not security.verify_jwt(token):
+            return controller.custom_error(code=401, msg='Unauthorized')
 
 
 @history.get('/employee/<int:employee>')
