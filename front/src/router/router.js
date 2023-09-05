@@ -7,6 +7,10 @@ const routes = [
     component: () => import('@/modules/auth/pages/Login.vue')
   },
   {
+    path: '/',
+    component: () => import('@/modules/auth/pages/Login.vue')
+  },
+  {
     path: '/dashboard',
     component: () => import('@/modules/dashboard/pages/Dashboard.vue')
   },
