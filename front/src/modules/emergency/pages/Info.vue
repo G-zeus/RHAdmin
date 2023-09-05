@@ -56,7 +56,6 @@ export default {
       this.emergency_contact = ""
       this.emergency_phone = ""
       this.blood_type = ""
-        console.log(error.response.data)
 
     })
 

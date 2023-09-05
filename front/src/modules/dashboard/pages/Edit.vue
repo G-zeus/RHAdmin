@@ -217,11 +217,10 @@ export default {
     getEmployee(this.$route.params.id)
         .then(data => {
 
-          console.log(data.data.data.history)
           this.name = data.data.data.name
           this.last_name = data.data.data.last_name
           this.second_name = data.data.data.second_name
-          this.position = data.data.data.pos
+          this.position = data.data.data.position
           this.emergency_contact = data.data.data.emergency_contact
           this.emergency_phone = data.data.data.emergency_phone
           this.blood_type = data.data.data.blood_type

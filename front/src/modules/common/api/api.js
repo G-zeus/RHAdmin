@@ -9,6 +9,5 @@ const api = axios.create({
   },
 
 })
-console.log(localStorage.getItem("tkn"))
 
 export default api

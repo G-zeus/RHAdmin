@@ -156,7 +156,6 @@ export default {
 
             createEmployee(data)
                 .then(data =>{
-                    console.log(data);
                     // this.makeToast("Hecho","Paciente creado","success");
                     this.$router.push("/dashboard");
                 }).catch( e =>{
