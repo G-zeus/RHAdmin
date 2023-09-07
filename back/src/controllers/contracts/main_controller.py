@@ -1,8 +1,13 @@
 from flask import jsonify, Response
+from ...repositories.user import UserRepository
 import json
 
 
 class MainController:
+
+    def getAuth(self, id: int):
+        user_repo = UserRepository()
+        return user_repo.get_one_by_id(id)
 
     def success(self, msg: str = 'success', data: json = None):
         if data is None:
