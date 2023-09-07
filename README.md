@@ -16,6 +16,6 @@ Se encuentran 2 carpetas, una llamada **/back** donde se desarrolló el backend 
     - Se recomienda usar POSTMAN
 
 ## [Despliegue del FrontEnd](/back/README.md)
-- Se puede ver una pequeña demo en esta [url](https://ephemeral-kitsune-c80a32.netlify.app/) donde ya esta integrado el front y el back
+- Se puede ver una pequeña demo en esta [url](https://rhadminwp.netlify.app/#/) donde ya esta integrado el front y el back
 
 *La latencia de las demos puede variar por el plan gratuito que se utilizó en el deploy*
