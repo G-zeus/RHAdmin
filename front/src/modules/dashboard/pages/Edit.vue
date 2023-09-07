@@ -250,15 +250,22 @@ export default {
           this.is_active = data.data.data.is_active
           this.history = data.data.data.history
 
-        }).catch(error => {
-      this.bagError.push({
-        'message': e.response.msg
+        })
+        .catch(error => {
+            if (error.response.status === 401){
+                console.log(error.response)
 
-      });
-      if (error.response.status === 401)
-        this.$router.push('/login');
+                this.$router.push('/login');
+                return false
+            }
 
-    });
+            this.bagError.push({
+
+            'message': e.response.msg
+
+          });
+
+        });
 
   }
 }
