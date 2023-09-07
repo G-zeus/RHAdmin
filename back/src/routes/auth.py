@@ -4,10 +4,13 @@ from cerberus import Validator
 from ..schemas.login import logging_schema
 from ..schemas.register import register_schema
 from ..utils.sanitizer import sanitize
+from ..utils.security import Security
 
 controller = AuthController()
 v = Validator()
 auth = Blueprint('auth', __name__, url_prefix='/api')
+security = Security()
+
 
 @auth.before_request
 def before_request_func():
@@ -26,6 +29,7 @@ def before_request_func():
 
         if not controller.getAuth(valid_token['user']):
             return controller.custom_error(code=401, msg='Unauthorized')
+
 
 
 @auth.post('/register')
@@ -55,4 +59,7 @@ def logout():
 
 @auth.get('/profile')
 def get_profile():
-    return controller.getAuth(request_data)
+    authorization = request.headers['Authorization']
+    token = authorization.split(" ")[1]
+
+    return controller.getAuth(security.verify_jwt(token)['user'])
