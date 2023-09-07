@@ -30,6 +30,7 @@
 </template>
 <script>
 import apiLogin from '@/modules/auth/helpers/auth'
+import {auth} from '../../auth/stores/auth'
 
 export default {
   name: 'Login',
@@ -90,7 +91,7 @@ export default {
         "email": this.email,
         "password": this.password
       }).then(response => {
-        localStorage.tkn = 'bearer ' + response.data.data.token
+        auth().setTkn( 'bearer ' + response.data.data.token)
         this.$router.push('dashboard');
 
       }).catch(error => {
@@ -105,8 +106,8 @@ export default {
   },
   mounted: function () {
 
-    if (localStorage.getItem('tkn'))
-      this.$router.push('dashboard');
+      if (auth().isAuth)
+        this.$router.push('dashboard');
 
   }
 }
@@ -170,26 +171,9 @@ h2 {
   text-align: center;
 }
 
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-}
-
 
 /* TABS */
 
-h2.inactive {
-  color: #cccccc;
-}
-
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
-}
 
 
 /* FORM TYPOGRAPHY*/
@@ -239,7 +223,6 @@ input[type=text], input[type=text], input[type=email], input[type=password] {
   font-size: 16px;
   margin: 5px;
   width: 85%;
-  border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -254,7 +237,7 @@ input[type=text]:focus, input[type=text]:focus {
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder, input[type=text]:focus {
+input[type=text]::placeholder, input[type=text]:focus {
   color: #cccccc;
 }
 
@@ -274,12 +257,10 @@ input[type=text]:placeholder, input[type=text]:focus {
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
   }
   100% {
     opacity: 1;
-    -webkit-transform: none;
     transform: none;
   }
 }
@@ -287,12 +268,10 @@ input[type=text]:placeholder, input[type=text]:focus {
 @keyframes fadeInDown {
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
     transform: translate3d(0, -100%, 0);
   }
   100% {
     opacity: 1;
-    -webkit-transform: none;
     transform: none;
   }
 }
@@ -364,25 +343,6 @@ input[type=text]:placeholder, input[type=text]:focus {
   animation-delay: 1s;
 }
 
-/* Simple CSS3 Fade-in Animation */
-.underlineHover:after {
-  display: block;
-  left: 0;
-  bottom: -10px;
-  width: 0;
-  height: 2px;
-  background-color: #56baed;
-  content: "";
-  transition: width 0.2s;
-}
-
-.underlineHover:hover {
-  color: #0d0d0d;
-}
-
-.underlineHover:hover:after {
-  width: 100%;
-}
 
 
 /* OTHERS */

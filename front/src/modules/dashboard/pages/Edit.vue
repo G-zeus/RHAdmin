@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group left">
-          <label for="" class="control-label col-sm-2">Contacto de emergencia</label>
+          <label for="" class="control-label col-sm-2">Contacto de emergencia *</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" name="emergency_contact" id="emergency_contact"
                    v-model="emergency_contact">
@@ -79,9 +79,9 @@
         </div>
       </form>
     </div>
-      <div v-if="bagError[0]">
-          {{ bagError[0].message }}
-      </div>
+    <div v-if="bagError[0]">
+      {{ bagError[0].message }}
+    </div>
   </div>
 
   <div class="container izquierda">
@@ -134,77 +134,99 @@ export default {
       blood_type: "",
       is_active: null,
       history: [],
-        bagError:[]
+      bagError: []
     }
   },
   methods: {
-      validate() {
-          this.bagError = []
-          if (!this.name) {
+    validate() {
+      this.bagError = []
+      if (!this.name || !this.name.trim()) {
+        this.bagError.push({
+          'message': 'Nombre es requerido y no puede contener solo espacios en blanco'
+        });
 
-              this.bagError.push({
-                  'message': 'Nombre es requerido'
-              });
+        return false
+      }
+      if (!this.last_name || !this.last_name.trim()) {
 
-              return false
+        this.bagError.push({
+          'message': 'Primer apellido es requerido y no puede contener solo espacios en blanco'
+        });
+
+        return false
+      }
+      if (!this.second_name || !this.second_name.trim()) {
+
+        this.bagError.push({
+          'message': 'Segundo apellido es requerido y no puede contener solo espacios en blanco'
+        });
+
+        return false
+      }
+      if (!this.emergency_contact || !this.emergency_contact.trim()) {
+
+        this.bagError.push({
+          'message': 'Contacto de emergencia es requerido y no puede contener solo espacios en blanco'
+        });
+
+        return false
+      }
+      if (!this.emergency_phone || !this.emergency_phone.trim()) {
+
+        this.bagError.push({
+          'message': 'Telefono de emergencia es requerido y no puede contener solo espacios en blanco'
+        });
+
+        return false
+      }
+
+
+      this.edit()
+
+
+    },
+
+    edit() {
+      const {history, bagError, ...data} = this.$data
+      updateEmployee(this.$route.params.id, data).then(data => {
+            this.$router.push("/dashboard");
+
           }
-          if (!this.last_name) {
+      ).catch(e => {
+        this.bagError.push({
+          'message': e.response.msg
 
-              this.bagError.push({
-                  'message': 'Primer apellido es requerido'
-              });
-
-              return false
-          }
-          if (!this.second_name) {
-
-              this.bagError.push({
-                  'message': 'Segundo apellido es requerido'
-              });
-
-              return false
-          }
-          if (!this.emergency_contact) {
-
-              this.bagError.push({
-                  'message': 'Contacto de emergencia es requerido'
-              });
-
-              return false
-          }
-          if (!this.emergency_phone) {
-
-              this.bagError.push({
-                  'message': 'Telefono de emergencia es requerido'
-              });
-
-              return false
-          }
-
-
-
-          this.edit()
-
-
-      },
-
-      edit() {
-        const{ history, bagError, ...data} = this.$data
-      updateEmployee(this.$route.params.id, data)
-      this.$router.push("/dashboard");
+        });
+      })
     },
     back() {
       this.$router.push("/dashboard");
     },
     deactivate() {
-      deleteEmployee(this.$route.params.id)
-      this.$router.push("/dashboard");
+      deleteEmployee(this.$route.params.id).then(data => {
+            this.$router.push("/dashboard");
+
+          }
+      ).catch(e => {
+        this.bagError.push({
+          'message': e.response.msg
+
+        });
+      })
 
 
     },
     activate() {
-      updateEmployee(this.$route.params.id, {'is_active': true})
-      this.$router.push("/dashboard");
+      updateEmployee(this.$route.params.id, {'is_active': true}).then(data => {
+            this.$router.push("/dashboard");
+
+          }
+      ).catch(e => {
+        this.bagError.push({
+          'message': e.response.msg
+
+        });
+      })
 
 
     },
@@ -214,6 +236,7 @@ export default {
     }
   },
   mounted: async function () {
+
     getEmployee(this.$route.params.id)
         .then(data => {
 
@@ -227,7 +250,15 @@ export default {
           this.is_active = data.data.data.is_active
           this.history = data.data.data.history
 
-        })
+        }).catch(error => {
+      this.bagError.push({
+        'message': e.response.msg
+
+      });
+      if (error.response.status === 401)
+        this.$router.push('/login');
+
+    });
 
   }
 }

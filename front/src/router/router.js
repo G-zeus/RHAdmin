@@ -4,6 +4,7 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 const routes = [
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/modules/auth/pages/Login.vue')
   },
   {
@@ -12,14 +13,17 @@ const routes = [
   },
   {
     path: '/dashboard',
+    name: 'dashboard',
     component: () => import('@/modules/dashboard/pages/Dashboard.vue')
   },
   {
     path: '/nuevoEmpleado',
+    name: 'nuevoEmpleado',
     component: () => import('@/modules/dashboard/pages/New.vue')
   },
   {
     path: '/editarEmpleado/:id',
+    name: 'editarEmpleado',
     component: () => import('@/modules/dashboard/pages/Edit.vue')
   },
   {

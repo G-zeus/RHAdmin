@@ -11,17 +11,26 @@
 
 </template>
 <script>
-
+import {auth} from '../../auth/stores/auth'
 export default {
   methods: {
     logOut() {
-      localStorage.clear();
-      this.$router.push('/login');
+      auth().clear()
+        this.$router.push('/login');
 
     },
 
 
-  }
+  },
+    mounted() {
+
+      if (!auth().isAuth){
+          this.$router.push('/login');
+
+      }
+
+
+    }
 }
 
 </script>
