@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 import {defineStore} from 'pinia'
-
+import getProfile from '@/modules/auth/helpers/getProfile'
 export const auth = defineStore('auth', () =>{
   const tkn = ref(localStorage.getItem('tkn'))
   function setTkn(token) {
@@ -9,7 +9,7 @@ export const auth = defineStore('auth', () =>{
   }
 
   const isAuth = computed(() => {
-    return Boolean( tkn.value) ;
+    return getProfile ;
   })
 
   function clear() {

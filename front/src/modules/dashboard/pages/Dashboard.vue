@@ -65,6 +65,10 @@ export default {
     getEmployees().then(response => {
       this.employeeList = response.data.data
     }).catch(error => {
+      console.log(error)
+      if (error.status)
+        this.$router.push('/login');
+
       if (error.response.status === 401)
         this.$router.push('/login');
 
