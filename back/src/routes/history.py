@@ -17,7 +17,12 @@ def before_request_func():
         authorization = request.headers['Authorization']
         token = authorization.split(" ")[1]
 
-        if not security.verify_jwt(token):
+        valid_token = security.verify_jwt(token)
+
+        if not valid_token:
+            return controller.custom_error(code=401, msg='Unauthorized')
+
+        if not controller.getAuth(valid_token['user']):
             return controller.custom_error(code=401, msg='Unauthorized')
 
 
