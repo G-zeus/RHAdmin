@@ -7,7 +7,7 @@ class MainController:
 
     def getAuth(self, id: int):
         user_repo = UserRepository()
-        return user_repo.get_one_by_id(id)
+        return user_repo.get_one(id=id, is_active=True)
 
     def success(self, msg: str = 'success', data: json = None):
         if data is None:
